@@ -14,8 +14,21 @@
 	<name>spring-boot-homework-4</name>
 	<description>Demo project for Spring Boot</description>
 	<properties>
+		<configuration>
 		<java.version>17</java.version>
-		<org.mapstruct.version>1.4.2.Final</org.mapstruct.version>
+		<annotationProcessorPaths>
+			<path>
+				<groupId>org.projectlombok</groupId>
+				<artifactId>lombok</artifactId>
+				<version>${lombok.version}</version>
+			</path>
+			<path>
+				<groupId>org.mapstruct</groupId>
+				<artifactId>mapstruct-processor</artifactId>
+				<version>${org.mapstruct.version}</version>
+			</path>
+		</annotationProcessorPaths>
+	</configuration>
 	</properties>
 	<dependencies>
 		<dependency>

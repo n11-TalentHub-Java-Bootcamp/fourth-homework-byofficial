@@ -1,8 +1,10 @@
 package com.burakyildiz.springboothomework4.controller;
 
+import com.burakyildiz.springboothomework4.dto.dept.AllDebtListDto;
+import com.burakyildiz.springboothomework4.dto.dept.CreateDebtDto;
+import com.burakyildiz.springboothomework4.mapper.DebtMapper;
 import com.burakyildiz.springboothomework4.model.Debt;
 
-import com.burakyildiz.springboothomework4.model.User;
 import com.burakyildiz.springboothomework4.service.IDebtService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -19,10 +21,12 @@ public class DebtController {
     private IDebtService debtService;
 
     @GetMapping("")
-    public List<Debt> findAll() {
+    public List<AllDebtListDto> findAll() {
+
         List<Debt> debtList = debtService.findAll();
 
-        return debtList;
+        List<AllDebtListDto> debtListDto = DebtMapper.INSTANCE.convertDebtToAllDeptListDto(debtList);
+        return debtListDto;
     }
 
     //3.e
@@ -33,13 +37,14 @@ public class DebtController {
         return deptAllUser;
     }
 
-    @PutMapping("")
-    public ResponseEntity<?> saveDebt(@RequestBody Debt debt) {
+    @PostMapping("")
+    public ResponseEntity<?> saveDebt(@RequestBody CreateDebtDto debtDto) {
         ResponseEntity<String> result = null;
 
+        Debt debt = DebtMapper.INSTANCE.convertCreateDebtDtoToDebt(debtDto);
 
-            debtService.saveDebt(debt);
-            result = new ResponseEntity<String>("Borç Eklendi!", HttpStatus.OK);
+        debtService.saveDebt(debt);
+        result = new ResponseEntity<String>("Borç Eklendi!", HttpStatus.OK);
 
         return result;
     }

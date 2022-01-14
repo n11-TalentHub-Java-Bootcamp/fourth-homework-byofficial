@@ -1,6 +1,9 @@
 package com.burakyildiz.springboothomework4.model;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
+import lombok.ToString;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
@@ -23,7 +26,7 @@ public class Debt {
 
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "ID_USER", foreignKey = @ForeignKey(name = "FK_DEBT_USER_ID"))
+    @JoinColumn(name = "userId", foreignKey = @ForeignKey(name = "FK_DEBT_USER_ID"))
     private User userId;
 
     @Column(name = "expiry_time")
