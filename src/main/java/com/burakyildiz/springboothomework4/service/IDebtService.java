@@ -8,6 +8,8 @@ import java.util.List;
 public interface IDebtService {
     List<Debt> findAll();
 
+    List<Debt> findAllByUserId(Long id);
+
     Debt saveDebt(Debt debt);
 
     void deleteById(Long id);

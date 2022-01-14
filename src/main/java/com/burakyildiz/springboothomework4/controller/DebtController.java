@@ -25,6 +25,14 @@ public class DebtController {
         return debtList;
     }
 
+    //3.e
+    @GetMapping("/user/{id}")
+    public List<Debt> findAllByUserId(@PathVariable Long id) {
+        List<Debt> deptAllUser = debtService.findAllByUserId(id);
+
+        return deptAllUser;
+    }
+
     @PutMapping("")
     public ResponseEntity<?> saveDebt(@RequestBody Debt debt) {
         ResponseEntity<String> result = null;

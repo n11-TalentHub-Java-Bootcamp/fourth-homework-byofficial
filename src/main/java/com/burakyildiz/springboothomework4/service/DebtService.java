@@ -22,6 +22,11 @@ public class DebtService implements IDebtService {
         return debtRepository.findAll();
     }
 
+    @Override
+    public List<Debt> findAllByUserId(Long id) {
+        return debtRepository.findAllByUserId(id);
+    }
+
 
     @Override
     public Debt saveDebt(Debt debt) {
