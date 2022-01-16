@@ -1,6 +1,6 @@
 package com.burakyildiz.springboothomework4.controller;
 
-import com.burakyildiz.springboothomework4.dto.dept.AllDebtListDto;
+import com.burakyildiz.springboothomework4.dto.dept.DebtListDto;
 import com.burakyildiz.springboothomework4.dto.dept.CreateDebtDto;
 import com.burakyildiz.springboothomework4.mapper.DebtMapper;
 import com.burakyildiz.springboothomework4.model.Debt;
@@ -21,20 +21,21 @@ public class DebtController {
     private IDebtService debtService;
 
     @GetMapping("")
-    public List<AllDebtListDto> findAll() {
-
+    public List<DebtListDto> findAll() {
         List<Debt> debtList = debtService.findAll();
+        List<DebtListDto> debtListDto = DebtMapper.INSTANCE.convertDebtToAllDeptListDto(debtList);
 
-        List<AllDebtListDto> debtListDto = DebtMapper.INSTANCE.convertDebtToAllDeptListDto(debtList);
         return debtListDto;
     }
 
     //3.e
     @GetMapping("/user/{id}")
-    public List<Debt> findAllByUserId(@PathVariable Long id) {
+    public List<DebtListDto> findAllByUserId(@PathVariable Long id) {
         List<Debt> deptAllUser = debtService.findAllByUserId(id);
 
-        return deptAllUser;
+        List<DebtListDto> debtListDto = DebtMapper.INSTANCE.convertDebtToAllDeptListDto(deptAllUser);
+
+        return debtListDto;
     }
 
     @PostMapping("")

@@ -6,7 +6,7 @@ import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
 @Data
-public class AllDebtListDto {
+public class DebtListDto {
     private BigDecimal mainDept;
     private BigDecimal totalDept;
     private LocalDateTime expiryDate;

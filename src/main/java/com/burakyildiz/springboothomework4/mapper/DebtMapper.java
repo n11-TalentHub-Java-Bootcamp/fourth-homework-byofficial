@@ -1,6 +1,6 @@
 package com.burakyildiz.springboothomework4.mapper;
 
-import com.burakyildiz.springboothomework4.dto.dept.AllDebtListDto;
+import com.burakyildiz.springboothomework4.dto.dept.DebtListDto;
 import com.burakyildiz.springboothomework4.dto.dept.CreateDebtDto;
 import com.burakyildiz.springboothomework4.model.Debt;
 import com.burakyildiz.springboothomework4.model.User;
@@ -22,10 +22,10 @@ public interface DebtMapper {
 
     @Mapping(source = "userId.username", target= "username")
     @Mapping(source = "userId.name", target= "name")
-    List<AllDebtListDto> convertDebtToAllDeptListDto(List<Debt> debt);
+    List<DebtListDto> convertDebtToAllDeptListDto(List<Debt> debt);
 
 
     @Mapping(source = "userId.username", target= "username")
     @Mapping(source = "userId.name", target= "name")
-    AllDebtListDto convertDebtToDebt(Debt debt);
+    DebtListDto convertDebtToDebt(Debt debt);
 }
