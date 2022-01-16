@@ -1,4 +1,4 @@
-package com.burakyildiz.springboothomework4.dto;
+package com.burakyildiz.springboothomework4.dto.user;
 
 import lombok.Data;
 

@@ -28,7 +28,9 @@ public class AuthenticationController
         {
             return new ResponseEntity<>(HttpStatus.CONFLICT);
         }
-        return new ResponseEntity<>(userService.saveUser(user), HttpStatus.CREATED);
+        return new ResponseEntity<>(
+                userService.saveUser(user),
+                HttpStatus.CREATED);
     }
 
     @PostMapping("sign-in")//api/authentication/sign-in

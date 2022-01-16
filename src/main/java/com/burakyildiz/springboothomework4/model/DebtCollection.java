@@ -22,6 +22,7 @@ public class DebtCollection {
     @Column(name = "amount", precision = 19, scale = 2)
     private BigDecimal amount;
 
+
     @Column(name = "created_time")
     private LocalDateTime createdDate;
 

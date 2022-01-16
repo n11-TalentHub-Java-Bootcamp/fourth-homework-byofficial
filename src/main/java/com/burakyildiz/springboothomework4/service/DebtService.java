@@ -31,6 +31,7 @@ public class DebtService implements IDebtService {
 
     @Override
     public Debt saveDebt(Debt debt) {
+        debt.setTopDebtId(null);
         debt.setTotalDept(debt.getMainDept());
         debt.setStatus(DebtType.NORMAL);
         debt.setCreatedDate(LocalDateTime.now());

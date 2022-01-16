@@ -31,6 +31,11 @@ public class Debt {
     @JoinColumn(name = "userId", foreignKey = @ForeignKey(name = "FK_DEBT_USER_ID"))
     private User userId;
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "toptDebtId", foreignKey = @ForeignKey(name = "FK_TOP_DEBT_TOP_ID"))
+    private Debt topDebtId;
+
+
     @Column(name = "expiry_time")
     private LocalDateTime expiryDate;
 
