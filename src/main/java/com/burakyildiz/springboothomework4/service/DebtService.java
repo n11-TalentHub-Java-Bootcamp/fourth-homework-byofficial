@@ -2,6 +2,7 @@ package com.burakyildiz.springboothomework4.service;
 
 import com.burakyildiz.springboothomework4.model.Debt;
 
+import com.burakyildiz.springboothomework4.model.DebtType;
 import com.burakyildiz.springboothomework4.model.User;
 import com.burakyildiz.springboothomework4.repository.IDebtRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,6 +31,8 @@ public class DebtService implements IDebtService {
 
     @Override
     public Debt saveDebt(Debt debt) {
+        debt.setTotalDept(debt.getMainDept());
+        debt.setStatus(DebtType.NORMAL);
         debt.setCreatedDate(LocalDateTime.now());
         return debtRepository.save(debt);
     }

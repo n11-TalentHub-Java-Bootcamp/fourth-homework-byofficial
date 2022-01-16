@@ -24,6 +24,8 @@ public class Debt {
     @Column(name = "total_dept", precision = 19, scale = 2)
     private BigDecimal totalDept;
 
+    @Column(name = "dept_status")
+    private DebtType status;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "userId", foreignKey = @ForeignKey(name = "FK_DEBT_USER_ID"))

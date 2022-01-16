@@ -8,7 +8,6 @@ import java.time.LocalDateTime;
 @Data
 public class CreateDebtDto {
     private BigDecimal mainDept;
-    private BigDecimal totalDept;
     private Long userId;
     private LocalDateTime expiryDate;
 }

@@ -25,8 +25,6 @@ public class DebtCollection {
     @Column(name = "created_time")
     private LocalDateTime createdDate;
 
-    @Column(name = "status")
-    private DebtType status;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "ID_DEBT", foreignKey = @ForeignKey(name = "FK_DEBT_COLLECTION_DEBT_ID"))

@@ -22,7 +22,6 @@ public class DebtCollectionService implements IDebtCollectionService{
     public DebtCollection save(DebtCollection debtCollection){
         debtCollection.setCreatedDate(LocalDateTime.now());
 
-        debtCollection.setStatus(DebtType.NORMAL);
         return debtCollectionRepository.save(debtCollection);
     }
 

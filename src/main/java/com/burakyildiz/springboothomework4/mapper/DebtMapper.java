@@ -20,6 +20,9 @@ public interface DebtMapper {
     @Mapping(source = "userId", target = "userId.id")
     Debt convertCreateDebtDtoToDebt(CreateDebtDto debtDto);
 
+
+    @Mapping(source = "totalDept", target= "totalDept")
+    @Mapping(source = "status", target= "status")
     @Mapping(source = "userId.username", target= "username")
     @Mapping(source = "userId.name", target= "name")
     List<DebtListDto> convertDebtToAllDeptListDto(List<Debt> debt);
