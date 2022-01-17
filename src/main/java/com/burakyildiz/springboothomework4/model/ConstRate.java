@@ -6,4 +6,5 @@ import lombok.Data;
 public class ConstRate {
     public static final Double RATE_1_5 = 1.5;
     public static final Double RATE_2 = 2.0;
+    public static final Double MIN = 1.0;
 }
