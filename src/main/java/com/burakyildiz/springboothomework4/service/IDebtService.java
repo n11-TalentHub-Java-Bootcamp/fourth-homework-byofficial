@@ -24,6 +24,9 @@ public interface IDebtService {
     //3.h Bir kullanıcının vadesi geçmiş toplam borç tutarını dönen bir servis olmaldıır.
     BigDecimal findAllByExpiryDateLessThanAndTotalMainDept(LocalDateTime expiryDate, Long userId);
 
+    //3.i Bir kullanıcının anlık gecikme zammı tutarını dönen bir servis olmalıdır.
+    BigDecimal findAllByTotalDeptStatus(Long userId);
+
     Debt saveDebt(Debt debt);
 
     void deleteById(Long id);

@@ -28,7 +28,11 @@ public interface IDebtRepository extends JpaRepository<Debt,Long> {
     @Query("select sum(debt.mainDept)  from Debt debt where debt.userId.id = :userId and debt.totalDept > 0")
     BigDecimal findAllByTotalMainDept(Long userId);
 
-    //3.h Bir kullanıcının toplam borç tutarını dönen bir servis olmaldıır.
+    //3.h Bir kullanıcının vadesi geçmiş toplam borç tutarını dönen bir servis olmaldıır.
     @Query("select sum(debt.mainDept)  from Debt debt where debt.expiryDate < :expiryDate and  debt.userId.id = :userId and debt.totalDept > 0")
     BigDecimal findAllByExpiryDateLessThanAndTotalMainDept(LocalDateTime expiryDate,Long userId);
+
+   // @Query("select debt from Debt debt where debt.expiryDate < :expiryDate and debt.userId.id = :id and debt.totalDept > 0")
+  // @Query("select debt  from Debt debt where debt.expiryDate < :expiryDate and debt.userId.id = :userId and debt.totalDept > 0")
+  // BigDecimal findAllByTotalDeptStatus(LocalDateTime expiryDate,Long userId);
 }

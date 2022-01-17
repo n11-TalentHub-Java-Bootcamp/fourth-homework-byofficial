@@ -1,6 +1,7 @@
 package com.burakyildiz.springboothomework4.service;
 
 import com.burakyildiz.springboothomework4.dto.dept.TwoDatesBetweenDeptListDto;
+import com.burakyildiz.springboothomework4.model.ConstRate;
 import com.burakyildiz.springboothomework4.model.Debt;
 
 import com.burakyildiz.springboothomework4.model.DebtType;
@@ -11,6 +12,7 @@ import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
+import java.time.Period;
 import java.util.List;
 import java.util.Optional;
 
@@ -50,10 +52,51 @@ public class DebtService implements IDebtService {
 
     //3.h Bir kullanıcının vadesi geçmiş toplam borç tutarını dönen bir servis olmaldıır.
     @Override
-    public BigDecimal findAllByExpiryDateLessThanAndTotalMainDept(LocalDateTime expiryDate,Long userId){
+    public BigDecimal findAllByExpiryDateLessThanAndTotalMainDept(LocalDateTime expiryDate, Long userId){
         return debtRepository.findAllByExpiryDateLessThanAndTotalMainDept(expiryDate, userId);
     }
 
+    //3.i Bir kullanıcının anlık gecikme zammı tutarını dönen bir servis olmalıdır.
+    @Override
+    public BigDecimal findAllByTotalDeptStatus(Long userId){
+        final LocalDateTime DEPT_TYPE_DATE = LocalDateTime.parse("2018-01-01T00:00:00"); //Gecikme Zammı için sabit tarih
+        BigDecimal rateDateAmount= new BigDecimal(0L) ;//Gecikme zammı miktarı (TL)
+        List<Debt> debtList = debtRepository.findAllByUserId(userId);
+
+
+
+        for (Debt debt: debtList) {
+            LocalDateTime dateNow = LocalDateTime.now(); //Şuan ki zaman
+            LocalDateTime expiryDate = debt.getExpiryDate(); //Borcun vade tarihi
+            LocalDateTime createdDate = debt.getCreatedDate(); //Borcun yapıldığı tarih
+            Period period = Period.between(dateNow.toLocalDate(), expiryDate.toLocalDate()); //Vade tarihi durumu
+            int compareDate = ((period.getYears() * 365) + (period.getMonths() * 12) + period.getDays()) * (-1); //Vade tarihi kaç gün geçmiş
+
+            double constRate;
+            if (compareDate > 0) {//vade tarihi geçmiş
+                //Borç tarihleri 2018 den sonra olan borçlar 2 oranı ile çarpılır
+                if (createdDate.compareTo(DEPT_TYPE_DATE) > 0) {
+                    constRate = ConstRate.RATE_2;
+                    Period periodRate = Period.between(expiryDate.toLocalDate(), dateNow.toLocalDate());
+                    rateDateAmount = rateDateAmount.add(new BigDecimal( Math.floor(
+                            (periodRate.getYears() * 365) +
+                                    (periodRate.getMonths() * 12) +
+                                    (periodRate.getDays()) *
+                                            (constRate))));
+                }else { //Borç tarihleri 2018 den önce olan borçlar 1.5 oranı ile çarpılır
+                    constRate = ConstRate.RATE_1_5;
+                    Period periodRate = Period.between(expiryDate.toLocalDate(), dateNow.toLocalDate());
+                    rateDateAmount= rateDateAmount.add(new BigDecimal( Math.floor(
+                            (periodRate.getYears() * 365) +
+                                    (periodRate.getMonths() * 12) +
+                                    (periodRate.getDays()) *
+                                            (constRate))));
+                }
+
+            }
+        }
+        return rateDateAmount;
+    }
     @Override
     public Debt saveDebt(Debt debt) {
         debt.setTopDebtId(null);

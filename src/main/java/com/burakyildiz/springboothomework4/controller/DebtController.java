@@ -89,6 +89,12 @@ public class DebtController {
         return debtService.findAllByExpiryDateLessThanAndTotalMainDept(LocalDateTime.now(), id);
     }
 
+    //3.i Bir kullanıcının anlık gecikme zammı tutarını dönen bir servis olmalıdır.
+    @GetMapping("/user/{id}/totallatefee")
+    public BigDecimal findAllByTotalDeptStatus(@PathVariable Long id){
+
+        return debtService.findAllByTotalDeptStatus(id);
+    }
 
     @PostMapping("")
     public ResponseEntity<?> saveDebt(@RequestBody CreateDebtDto debtDto) {
