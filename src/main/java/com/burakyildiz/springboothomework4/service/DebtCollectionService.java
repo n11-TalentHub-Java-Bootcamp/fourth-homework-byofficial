@@ -24,6 +24,30 @@ public class DebtCollectionService implements IDebtCollectionService {
     @Autowired
     private IDebtRepository debtRepository;
 
+    //4.b Belirtilen tarihler arasında yapılan tahsilatlar listelenebilmelidir.
+    @Override
+    public List<DebtCollection> findAllByCreatedDateBetween(LocalDateTime startDate, LocalDateTime endDate){
+      return  debtCollectionRepository.findAllByCreatedDateBetween(startDate, endDate);
+    }
+
+    //4.c Kullanıcının tüm tahsilatları listelenebilmelidir.
+    @Override
+    public List<DebtCollection> findAllByUserId(Long id){
+        return debtCollectionRepository.findAllByUserId(id);
+    }
+
+    //4.d Kullanıcının ödediği gecikme zammı listelenebilmelidir
+    @Override
+    public List<DebtCollection> findAllByTotalDebtId_Status(Long id, DebtType status){
+        return debtCollectionRepository.findAllByTotalDebtId_Status(id, status);
+    }
+
+    //4.d.2 Kullanıcının ödediği toplam gecikme zammı miktarı
+    @Override
+    public BigDecimal findAllByTotalDebtId_StatusAmount(Long id, DebtType status){
+        return debtCollectionRepository.findAllByTotalDebtId_StatusAmount(id, status);
+    }
+
     @Override
     public DebtCollection save(DebtCollection debtCollection) {
         Optional<Debt> optional = debtRepository.findById(debtCollection.getDebtId().getId());//Tahsilatın bağlı olduğu borç
@@ -64,6 +88,7 @@ public class DebtCollectionService implements IDebtCollectionService {
         debtCollection.setCreatedDate(dateNow);
         return debtCollectionRepository.save(debtCollection);
     }
+
 
     @Override
     public DebtCollection findById(Long id) {
