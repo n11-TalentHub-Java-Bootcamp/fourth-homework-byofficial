@@ -6,6 +6,7 @@ import com.burakyildiz.springboothomework4.model.DebtType;
 import com.burakyildiz.springboothomework4.repository.IDebtRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
@@ -14,6 +15,7 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
+@Transactional
 public class DebtService implements IDebtService {
 
     private static final LocalDateTime DEBT_TYPE_DATE = LocalDateTime.parse("2018-01-01T00:00:00"); //Gecikme Zammı için sabit tarih
