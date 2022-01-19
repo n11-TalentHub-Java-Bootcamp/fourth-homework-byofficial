@@ -30,8 +30,9 @@ public class DebtCollectionController {
     //Tüm tahsilatlar listelenir
     @GetMapping("")
     public ResponseEntity<?> findAll() {
+      List<DebtCollectionListDto> debtCollectionList =  DebtCollectionMapper.INSTANCE.convertDebtCollectionToAllDebtCollectionListDto(debtCollectionService.findAll());
         return new ResponseEntity<>(
-                debtCollectionService.findAll(),
+                debtCollectionList,
                 HttpStatus.OK);
     }
 
