@@ -1,10 +1,9 @@
 package com.burakyildiz.springboothomework4.mapper;
 
-import com.burakyildiz.springboothomework4.dto.dept.DebtListDto;
-import com.burakyildiz.springboothomework4.dto.dept.TwoDatesBetweenDeptListDto;
-import com.burakyildiz.springboothomework4.dto.deptCollect.CreateDeptCollectionDto;
-import com.burakyildiz.springboothomework4.dto.deptCollect.DebtCollectionListDto;
-import com.burakyildiz.springboothomework4.dto.deptCollect.TwoDatesBetweenDeptCollectionListDto;
+import com.burakyildiz.springboothomework4.dto.debtCollect.CreateDebtCollectionDto;
+import com.burakyildiz.springboothomework4.dto.debtCollect.DebtCollectionLateFeeDto;
+import com.burakyildiz.springboothomework4.dto.debtCollect.DebtCollectionListDto;
+import com.burakyildiz.springboothomework4.dto.debtCollect.TwoDatesBetweenDebtCollectionListDto;
 import com.burakyildiz.springboothomework4.model.Debt;
 import com.burakyildiz.springboothomework4.model.DebtCollection;
 import org.mapstruct.Mapper;
@@ -19,46 +18,62 @@ public interface DebtCollectionMapper {
     DebtCollectionMapper INSTANCE = Mappers.getMapper(DebtCollectionMapper.class);
 
     @Mapping(source = "debtId", target = "debtId.id")
-    DebtCollection convertCreateDebtCollectionDtoToDebtCollection(CreateDeptCollectionDto deptCollectionDto);
+    DebtCollection convertCreateDebtCollectionDtoToDebtCollection(CreateDebtCollectionDto debtCollectionDto);
 
 
     /**
      * All List Mapper
      */
-    @Mapping(source = "debtId.mainDept", target= "mainDept")
-    @Mapping(source = "debtId.totalDept", target= "totalDept")
+    @Mapping(source = "debtId.mainDebt", target= "mainDebt")
+    @Mapping(source = "debtId.totalDebt", target= "totalDebt")
     @Mapping(source = "debtId.status", target= "status")
     @Mapping(source = "debtId.userId.username", target= "username")
     @Mapping(source = "debtId.userId.name", target= "name")
     @Mapping(source = "debtId.expiryDate", target= "expiryDate")
-    List<TwoDatesBetweenDeptCollectionListDto> convertDebtCollectionToTwoDatesBetweenDeptCollectionListDto(List<DebtCollection> debt);
+    List<TwoDatesBetweenDebtCollectionListDto> convertDebtCollectionToTwoDatesBetweenDebtCollectionListDto(List<DebtCollection> debt);
 
 
-    @Mapping(source = "debtId.mainDept", target= "mainDept")
-    @Mapping(source = "debtId.totalDept", target= "totalDept")
+    @Mapping(source = "debtId.mainDebt", target= "mainDebt")
+    @Mapping(source = "debtId.totalDebt", target= "totalDebt")
     @Mapping(source = "debtId.status", target= "status")
     @Mapping(source = "debtId.userId.username", target= "username")
     @Mapping(source = "debtId.userId.name", target= "name")
     @Mapping(source = "debtId.expiryDate", target= "expiryDate")
-    List<DebtCollectionListDto> convertDebtCollectionToAllDeptCollectionListDto(List<DebtCollection> debt);
+    List<DebtCollectionListDto> convertDebtCollectionToAllDebtCollectionListDto(List<DebtCollection> debt);
+
+    @Mapping(target = "mainDebt", source= "mainDebt")
+    @Mapping(target = "totalDebt", source= "totalDebt")
+    @Mapping(target = "status", source= "status")
+    @Mapping(target = "username", source= "userId.username")
+    @Mapping(target = "name", source= "userId.name")
+
+    List<DebtCollectionLateFeeDto> convertDebtToDebtCollectionList(List<Debt> debt);
 
     /**
      * All Single Mapper
      */
-    @Mapping(source = "debtId.mainDept", target= "mainDept")
-    @Mapping(source = "debtId.totalDept", target= "totalDept")
+    @Mapping(source = "debtId.mainDebt", target= "mainDebt")
+    @Mapping(source = "debtId.totalDebt", target= "totalDebt")
     @Mapping(source = "debtId.status", target= "status")
     @Mapping(source = "debtId.userId.username", target= "username")
     @Mapping(source = "debtId.userId.name", target= "name")
     @Mapping(source = "debtId.expiryDate", target= "expiryDate")
-    TwoDatesBetweenDeptCollectionListDto convertDebtCollectionToTwoDatesBetweenDeptCollectionDto(DebtCollection debt);
+    TwoDatesBetweenDebtCollectionListDto convertDebtCollectionToTwoDatesBetweenDebtCollectionDto(DebtCollection debt);
 
-    @Mapping(source = "debtId.mainDept", target= "mainDept")
-    @Mapping(source = "debtId.totalDept", target= "totalDept")
+    @Mapping(source = "debtId.mainDebt", target= "mainDebt")
+    @Mapping(source = "debtId.totalDebt", target= "totalDebt")
     @Mapping(source = "debtId.status", target= "status")
     @Mapping(source = "debtId.userId.username", target= "username")
     @Mapping(source = "debtId.userId.name", target= "name")
     @Mapping(source = "debtId.expiryDate", target= "expiryDate")
     DebtCollectionListDto convertDebtCollectionToDebtCollectionListDto(DebtCollection debt);
+
+    @Mapping(target = "mainDebt", source= "mainDebt")
+    @Mapping(target = "totalDebt", source= "totalDebt")
+    @Mapping(target = "status", source= "status")
+    @Mapping(target = "username", source= "userId.username")
+    @Mapping(target = "name", source= "userId.name")
+
+    DebtCollectionLateFeeDto convertDebtToDebtCollection(Debt debt);
 
 }

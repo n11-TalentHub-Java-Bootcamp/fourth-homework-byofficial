@@ -11,20 +11,20 @@ import java.time.LocalDateTime;
 
 @Data
 @Entity
-@Table(name = "dept")
+@Table(name = "debt")
 public class Debt {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "main_dept", precision = 19, scale = 2)
-    private BigDecimal mainDept;
+    @Column(name = "main_debt", precision = 19, scale = 2)
+    private BigDecimal mainDebt;
 
-    @Column(name = "total_dept", precision = 19, scale = 2)
-    private BigDecimal totalDept;
+    @Column(name = "total_debt", precision = 19, scale = 2)
+    private BigDecimal totalDebt;
 
-    @Column(name = "dept_status")
+    @Column(name = "debt_status")
     private DebtType status;
 
     @ManyToOne(fetch = FetchType.LAZY)

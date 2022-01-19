@@ -1,4 +1,4 @@
-package com.burakyildiz.springboothomework4.dto.dept;
+package com.burakyildiz.springboothomework4.dto.debt;
 
 import lombok.Data;
 
@@ -7,7 +7,7 @@ import java.time.LocalDateTime;
 
 @Data
 public class CreateDebtDto {
-    private BigDecimal mainDept;
+    private BigDecimal mainDebt;
     private Long userId;
     private LocalDateTime expiryDate;
 }

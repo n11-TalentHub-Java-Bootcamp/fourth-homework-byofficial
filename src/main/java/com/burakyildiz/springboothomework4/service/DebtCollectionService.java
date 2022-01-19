@@ -38,8 +38,8 @@ public class DebtCollectionService implements IDebtCollectionService {
 
     //4.d Kullanıcının ödediği gecikme zammı listelenebilmelidir
     @Override
-    public List<DebtCollection> findAllByTotalDebtId_Status(Long id, DebtType status){
-        return debtCollectionRepository.findAllByTotalDebtId_Status(id, status);
+    public List<Debt> findAllByTotalDebtId_Status(Long id, DebtType status){
+        return debtRepository.findAllByTotalDebtId_Status(id, status);
     }
 
     //4.d.2 Kullanıcının ödediği toplam gecikme zammı miktarı
@@ -56,7 +56,7 @@ public class DebtCollectionService implements IDebtCollectionService {
             debt = optional.get();
         }
 
-        final LocalDateTime DEPT_TYPE_DATE = LocalDateTime.parse("2018-01-01T00:00:00"); //Gecikme Zammı için sabit tarih
+        final LocalDateTime DEBT_TYPE_DATE = LocalDateTime.parse("2018-01-01T00:00:00"); //Gecikme Zammı için sabit tarih
         LocalDateTime dateNow = LocalDateTime.now(); //Şuan ki tahsilat zamanı
         LocalDateTime expiryDate = debt.getExpiryDate(); //Borcun vade tarihi
         LocalDateTime createdDate = debt.getCreatedDate(); //Borcun yapıldığı tarih
@@ -67,7 +67,7 @@ public class DebtCollectionService implements IDebtCollectionService {
         double constRate;
         if (compareDate > 0) {//vade tarihi geçmiş
             //Borç tarihleri 2018 den sonra olan borçlar 2 oranı ile çarpılır
-            if (createdDate.compareTo(DEPT_TYPE_DATE) > 0) {
+            if (createdDate.compareTo(DEBT_TYPE_DATE) > 0) {
                 constRate = ConstRate.RATE_2;
                 saveDebtCollection(expiryDate,dateNow,rateDateAmount,constRate,debt);
             }else { //Borç tarihleri 2018 den önce olan borçlar 1.5 oranı ile çarpılır
@@ -75,13 +75,9 @@ public class DebtCollectionService implements IDebtCollectionService {
                 saveDebtCollection(expiryDate,dateNow,rateDateAmount,constRate,debt);
             }
 
-        } else if (compareDate < 0) {//vade tarihi henüz dolmamış
-            debt.setTotalDept(BigDecimal.valueOf(0L));
+        }  else {//vade tarihi henüz dolmamış
+            debt.setTotalDebt(BigDecimal.valueOf(0L));
             debtRepository.save(debt);
-
-
-        } else {//aynı gün
-
         }
 
 
@@ -123,8 +119,8 @@ public class DebtCollectionService implements IDebtCollectionService {
 
         //Veritabanına gecikme zammı ile ilgili bir borç kaydı eklenir
         Debt debtLateFee = new Debt();
-        debtLateFee.setMainDept(BigDecimal.valueOf(rateDateAmount)); //Ana Borç
-        debtLateFee.setTotalDept(BigDecimal.valueOf(0L)); //Kalan Borç
+        debtLateFee.setMainDebt(BigDecimal.valueOf(rateDateAmount)); //Ana Borç
+        debtLateFee.setTotalDebt(BigDecimal.valueOf(0L)); //Kalan Borç
         debtLateFee.setStatus(DebtType.LATE_FEE); // Gecikme Zammı Borcu
         debtLateFee.setCreatedDate(dateNow); // Oluşturulma Tarihi
         debtLateFee.setUserId(debt.getUserId()); // Kullanıcı Id
@@ -133,7 +129,7 @@ public class DebtCollectionService implements IDebtCollectionService {
 
 
         //Normal Borcun tahsilatı yapılır
-        debt.setTotalDept(BigDecimal.valueOf(0L));
+        debt.setTotalDebt(BigDecimal.valueOf(0L));
         debtRepository.save(debt);
 
 //        //Gecikme Zammı Tahsilatı Yapılır

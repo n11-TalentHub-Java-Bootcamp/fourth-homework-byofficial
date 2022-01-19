@@ -1,8 +1,6 @@
 package com.burakyildiz.springboothomework4.service;
 
-import com.burakyildiz.springboothomework4.dto.dept.TwoDatesBetweenDeptListDto;
 import com.burakyildiz.springboothomework4.model.Debt;
-import com.burakyildiz.springboothomework4.model.User;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
@@ -16,16 +14,16 @@ public interface IDebtService {
     List<Debt> findAllByCreatedDateBetween(LocalDateTime startDate, LocalDateTime endDate);
 
     //3.f Bir kullanıcının vadesi geçmiş borçları listenelebilmelidir. (Borç tutarı sıfırdan büyük olanlar)
-    List<Debt> findAllByExpiryDateLessThanAndUserIdAndTotalDeptGreaterThan(LocalDateTime dateNow, Long userId, BigDecimal totalDept);
+    List<Debt> findAllByExpiryDateLessThanAndUserIdAndTotalDebtGreaterThan(LocalDateTime dateNow, Long userId, BigDecimal totalDebt);
 
     //3.g Bir kullanıcının toplam borç tutarını dönen bir servis olmaldıır.
-    BigDecimal findAllByTotalMainDept(Long userId);
+    BigDecimal findAllByTotalMainDebt(Long userId);
 
     //3.h Bir kullanıcının vadesi geçmiş toplam borç tutarını dönen bir servis olmaldıır.
-    BigDecimal findAllByExpiryDateLessThanAndTotalMainDept(LocalDateTime expiryDate, Long userId);
+    BigDecimal findAllByExpiryDateLessThanAndTotalMainDebt(LocalDateTime expiryDate, Long userId);
 
     //3.i Bir kullanıcının anlık gecikme zammı tutarını dönen bir servis olmalıdır.
-    BigDecimal findAllByTotalDeptStatus(Long userId);
+    BigDecimal findAllByTotalDebtStatus(Long userId);
 
     Debt saveDebt(Debt debt);
 

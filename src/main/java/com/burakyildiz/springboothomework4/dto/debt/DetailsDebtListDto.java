@@ -1,4 +1,4 @@
-package com.burakyildiz.springboothomework4.dto.dept;
+package com.burakyildiz.springboothomework4.dto.debt;
 
 import com.burakyildiz.springboothomework4.model.DebtType;
 import lombok.Data;
@@ -6,11 +6,11 @@ import lombok.Data;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 @Data
-public class TwoDatesBetweenDeptListDto {
+public class DetailsDebtListDto {
     private Long id;
     private Long topDebtId;
-    private BigDecimal mainDept;
-    private BigDecimal totalDept;
+    private BigDecimal mainDebt;
+    private BigDecimal totalDebt;
     private DebtType status;
 
     private String username;

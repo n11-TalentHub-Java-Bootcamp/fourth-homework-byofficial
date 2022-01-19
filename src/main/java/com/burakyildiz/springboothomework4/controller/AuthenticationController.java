@@ -1,5 +1,8 @@
 package com.burakyildiz.springboothomework4.controller;
 
+import com.burakyildiz.springboothomework4.dto.user.CreateUserDto;
+import com.burakyildiz.springboothomework4.dto.user.LoginDto;
+import com.burakyildiz.springboothomework4.mapper.AuthenticationMapper;
 import com.burakyildiz.springboothomework4.model.User;
 import com.burakyildiz.springboothomework4.service.IAuthenticationService;
 import com.burakyildiz.springboothomework4.service.IUserService;
@@ -13,19 +16,19 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("api/auth")//pre-path
-public class AuthenticationController
-{
+public class AuthenticationController {
     @Autowired
     private IAuthenticationService authenticationService;
 
     @Autowired
     private IUserService userService;
 
-    @PostMapping("sign-up") //api/authentication/sign-up
-    public ResponseEntity<?> signUp(@RequestBody User user)
-    {
-        if (userService.findByUsername(user.getUsername()).isPresent())
-        {
+    //1.a Kullanıcı kaydeden servis yazın
+    @PostMapping("sign-up") //api/auth/sign-up
+    public ResponseEntity<?> signUp(@RequestBody CreateUserDto userDto) {
+        User user = AuthenticationMapper.INSTANCE.convertCreateUserDtoToUser(userDto);
+
+        if (userService.findByUsername(user.getUsername()).isPresent()) {
             return new ResponseEntity<>(HttpStatus.CONFLICT);
         }
         return new ResponseEntity<>(
@@ -33,9 +36,10 @@ public class AuthenticationController
                 HttpStatus.CREATED);
     }
 
-    @PostMapping("sign-in")//api/authentication/sign-in
-    public ResponseEntity<?> signIn(@RequestBody User user)
-    {
+    //Kullanıcı girişi
+    @PostMapping("sign-in")//api/auth/sign-in
+    public ResponseEntity<?> signIn(@RequestBody LoginDto loginDto) {
+        User user = AuthenticationMapper.INSTANCE.convertLoginDtoToUser(loginDto);
         return new ResponseEntity<>(authenticationService.signInAndReturnJWT(user), HttpStatus.OK);
     }
 }

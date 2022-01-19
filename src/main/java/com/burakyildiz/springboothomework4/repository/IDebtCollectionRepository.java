@@ -18,12 +18,8 @@ public interface IDebtCollectionRepository extends JpaRepository<DebtCollection,
     @Query("select debtCollection from DebtCollection debtCollection where debtCollection.debtId.userId.id = :id")
     List<DebtCollection> findAllByUserId(Long id);
 
-    //4.d Kullanıcının ödediği gecikme zammı listelenebilmelidir
-    @Query("select debtCollection from DebtCollection debtCollection where debtCollection.debtId.userId.id = :id and debtCollection.debtId.status = :status")
-    List<DebtCollection> findAllByTotalDebtId_Status(Long id, DebtType status);
-
 
     //4.d.2 Kullanıcının ödediği toplam gecikme zammı miktarı
-    @Query("select sum(debtCollection.debtId.mainDept) from DebtCollection debtCollection where debtCollection.debtId.userId.id = :id and debtCollection.debtId.status = :status")
+    @Query("select sum(debtCollection.debtId.mainDebt) from DebtCollection debtCollection where debtCollection.debtId.userId.id = :id and debtCollection.debtId.status = :status")
     BigDecimal findAllByTotalDebtId_StatusAmount(Long id, DebtType status);
 }

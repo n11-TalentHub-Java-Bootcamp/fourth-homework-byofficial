@@ -1,5 +1,6 @@
 package com.burakyildiz.springboothomework4.service;
 
+import com.burakyildiz.springboothomework4.model.Debt;
 import com.burakyildiz.springboothomework4.model.DebtCollection;
 import com.burakyildiz.springboothomework4.model.DebtType;
 
@@ -20,7 +21,7 @@ public interface IDebtCollectionService {
     DebtCollection save(DebtCollection debtCollection);
 
     //4.d Kullanıcının ödediği gecikme zammı listelenebilmelidir
-    List<DebtCollection> findAllByTotalDebtId_Status(Long id, DebtType status);
+    List<Debt> findAllByTotalDebtId_Status(Long id, DebtType status);
 
     DebtCollection findById(Long id);
 
