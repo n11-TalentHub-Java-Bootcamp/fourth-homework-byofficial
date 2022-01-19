@@ -30,7 +30,7 @@ public class DebtCollectionController {
     //Tüm tahsilatlar listelenir
     @GetMapping("")
     public ResponseEntity<?> findAll() {
-      List<DebtCollectionListDto> debtCollectionList =  DebtCollectionMapper.INSTANCE.convertDebtCollectionToAllDebtCollectionListDto(debtCollectionService.findAll());
+        List<DebtCollectionListDto> debtCollectionList = DebtCollectionMapper.INSTANCE.convertDebtCollectionToAllDebtCollectionListDto(debtCollectionService.findAll());
         return new ResponseEntity<>(
                 debtCollectionList,
                 HttpStatus.OK);
@@ -48,13 +48,12 @@ public class DebtCollectionController {
     }
 
 
-
     //4.b Belirtilen tarihler arasında yapılan tahsilatlar listelenebilmelidir
     //[GET] https://localhost:8080/api/collection/date/between?s={start_date}&e={end_date}
     //example-> /api/collections/date/between?s=2022-01-15&e=2022-01-20
     @GetMapping("/date/between")
     public ResponseEntity<?> findAllByCreatedDateBetween(@RequestParam(value = "s", required = false) String s,
-                                                                        @RequestParam(value = "e", required = false) String e) {
+                                                         @RequestParam(value = "e", required = false) String e) {
 
         LocalDateTime startDate = LocalDate.parse(s).atTime(LocalTime.now());
         LocalDateTime endDate = LocalDate.parse(e).atTime(LocalTime.now());
@@ -62,7 +61,7 @@ public class DebtCollectionController {
 
         List<TwoDatesBetweenDebtCollectionListDto> debtListDto = DebtCollectionMapper.INSTANCE.convertDebtCollectionToTwoDatesBetweenDebtCollectionListDto(debtList);
 
-        return  new ResponseEntity<>(
+        return new ResponseEntity<>(
                 debtListDto,
                 HttpStatus.OK);
     }
@@ -100,7 +99,6 @@ public class DebtCollectionController {
                 debtCollectionService.findAllByTotalDebtId_StatusAmount(id, DebtType.LATE_FEE),
                 HttpStatus.OK);
     }
-
 
 
 }

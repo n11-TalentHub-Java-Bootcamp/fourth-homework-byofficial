@@ -1,9 +1,11 @@
 package com.burakyildiz.springboothomework4.service;
 
-import com.burakyildiz.springboothomework4.model.*;
+import com.burakyildiz.springboothomework4.model.ConstRate;
+import com.burakyildiz.springboothomework4.model.Debt;
+import com.burakyildiz.springboothomework4.model.DebtCollection;
+import com.burakyildiz.springboothomework4.model.DebtType;
 import com.burakyildiz.springboothomework4.repository.IDebtCollectionRepository;
 import com.burakyildiz.springboothomework4.repository.IDebtRepository;
-import org.apache.tomcat.jni.Local;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -26,25 +28,25 @@ public class DebtCollectionService implements IDebtCollectionService {
 
     //4.b Belirtilen tarihler arasında yapılan tahsilatlar listelenebilmelidir.
     @Override
-    public List<DebtCollection> findAllByCreatedDateBetween(LocalDateTime startDate, LocalDateTime endDate){
-      return  debtCollectionRepository.findAllByCreatedDateBetween(startDate, endDate);
+    public List<DebtCollection> findAllByCreatedDateBetween(LocalDateTime startDate, LocalDateTime endDate) {
+        return debtCollectionRepository.findAllByCreatedDateBetween(startDate, endDate);
     }
 
     //4.c Kullanıcının tüm tahsilatları listelenebilmelidir.
     @Override
-    public List<DebtCollection> findAllByUserId(Long id){
+    public List<DebtCollection> findAllByUserId(Long id) {
         return debtCollectionRepository.findAllByUserId(id);
     }
 
     //4.d Kullanıcının ödediği gecikme zammı listelenebilmelidir
     @Override
-    public List<Debt> findAllByTotalDebtId_Status(Long id, DebtType status){
+    public List<Debt> findAllByTotalDebtId_Status(Long id, DebtType status) {
         return debtRepository.findAllByTotalDebtId_Status(id, status);
     }
 
     //4.d.2 Kullanıcının ödediği toplam gecikme zammı miktarı
     @Override
-    public BigDecimal findAllByTotalDebtId_StatusAmount(Long id, DebtType status){
+    public BigDecimal findAllByTotalDebtId_StatusAmount(Long id, DebtType status) {
         return debtCollectionRepository.findAllByTotalDebtId_StatusAmount(id, status);
     }
 
@@ -69,13 +71,13 @@ public class DebtCollectionService implements IDebtCollectionService {
             //Borç tarihleri 2018 den sonra olan borçlar 2 oranı ile çarpılır
             if (createdDate.compareTo(DEBT_TYPE_DATE) > 0) {
                 constRate = ConstRate.RATE_2;
-                saveDebtCollection(expiryDate,dateNow,rateDateAmount,constRate,debt);
-            }else { //Borç tarihleri 2018 den önce olan borçlar 1.5 oranı ile çarpılır
+                saveDebtCollection(expiryDate, dateNow, rateDateAmount, constRate, debt);
+            } else { //Borç tarihleri 2018 den önce olan borçlar 1.5 oranı ile çarpılır
                 constRate = ConstRate.RATE_1_5;
-                saveDebtCollection(expiryDate,dateNow,rateDateAmount,constRate,debt);
+                saveDebtCollection(expiryDate, dateNow, rateDateAmount, constRate, debt);
             }
 
-        }  else {//vade tarihi henüz dolmamış
+        } else {//vade tarihi henüz dolmamış
             debt.setTotalDebt(BigDecimal.valueOf(0L));
             debtRepository.save(debt);
         }
@@ -105,7 +107,7 @@ public class DebtCollectionService implements IDebtCollectionService {
     }
 
 
-    public void saveDebtCollection(LocalDateTime expiryDate, LocalDateTime dateNow, Double rateDateAmount, Double constRate, Debt debt){
+    public void saveDebtCollection(LocalDateTime expiryDate, LocalDateTime dateNow, Double rateDateAmount, Double constRate, Debt debt) {
 
 
         //Gecikme zammı hesaplanıyor

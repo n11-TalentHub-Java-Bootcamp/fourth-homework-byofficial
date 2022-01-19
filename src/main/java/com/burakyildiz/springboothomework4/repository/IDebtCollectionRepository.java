@@ -1,6 +1,5 @@
 package com.burakyildiz.springboothomework4.repository;
 
-import com.burakyildiz.springboothomework4.model.Debt;
 import com.burakyildiz.springboothomework4.model.DebtCollection;
 import com.burakyildiz.springboothomework4.model.DebtType;
 import org.springframework.data.jpa.repository.JpaRepository;

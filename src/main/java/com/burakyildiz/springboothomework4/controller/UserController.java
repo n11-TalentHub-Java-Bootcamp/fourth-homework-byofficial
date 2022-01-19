@@ -1,6 +1,5 @@
 package com.burakyildiz.springboothomework4.controller;
 
-import com.burakyildiz.springboothomework4.dto.user.UpdateUserDto;
 import com.burakyildiz.springboothomework4.dto.user.UserDto;
 import com.burakyildiz.springboothomework4.mapper.UserMapper;
 import com.burakyildiz.springboothomework4.model.User;
