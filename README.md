@@ -38,6 +38,18 @@ cd fourth-homework-byofficial
 ```sh
 mvnw spring-boot:run
 ```
+
+## Init
+1. Creating a new user
+```
+[POST] localhost:2633/api/auth/sign-up
+```
+2. Login user
+```
+[POST] localhost:2633/api/auth/sign-in
+```
+3. Use the following Endpoints
+
 ## Endpoints
 #### Authentication-Endpoints
 
@@ -63,6 +75,11 @@ Content-Length: 74
 POST /api/auth/sign-in HTTP/1.1
 Host: localhost:2633
 Content-Type: application/json
+
+{
+    "username":"test6",
+    "password":"test"
+}
 ````
 
 
